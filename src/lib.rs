@@ -1,3 +1,9 @@
+/*!
+    Simple audio lib based on [rodio](https://github.com/tomaka/rodio).
+*/
+
+#![deny(missing_docs)]
+
 extern crate rodio;
 
 use rodio::{ Endpoint, Sink };
