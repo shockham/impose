@@ -1,5 +1,5 @@
 /*!
-    Simple audio lib based on [rodio](https://github.com/tomaka/rodio).
+    Minimalist audio lib based on [rodio](https://github.com/tomaka/rodio).
 */
 
 #![deny(missing_docs)]
