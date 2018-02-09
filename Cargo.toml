@@ -10,4 +10,4 @@ documentation = "https://docs.rs/impose/"
 description = "Minimalist audio lib"
 
 [dependencies]
-rodio = "0.5"
+rodio = "0.6"
