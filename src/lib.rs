@@ -34,7 +34,7 @@ impl Audio {
     /// Creates a new instance of the Audio system
     pub fn new() -> Audio {
         Audio {
-            endpoint: rodio::get_default_endpoint().unwrap(),
+            endpoint: rodio::default_endpoint().unwrap(),
             audio: HashMap::new(),
             channels: HashMap::new(),
         }
