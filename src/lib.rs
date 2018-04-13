@@ -66,7 +66,7 @@ impl Audio {
         let audio = &self.audio[name];
 
         match audio {
-            AudioType::Packed(ref audio) => {
+            &AudioType::Packed(ref audio) => {
                 let audio = audio.clone();
                 let cursor = Cursor::new(audio);
                 self.channels[name].append(
@@ -75,7 +75,7 @@ impl Audio {
                     ).unwrap(),
                 );
             }
-            AudioType::Loose(ref audio) => {
+            &AudioType::Loose(ref audio) => {
                 let mut audio = audio.try_clone().unwrap();
                 audio.seek(SeekFrom::Start(0u64)).unwrap();
                 self.channels[name].append(
@@ -92,7 +92,7 @@ impl Audio {
         let audio = &self.audio[name];
 
         match audio {
-            AudioType::Packed(ref audio) => {
+            &AudioType::Packed(ref audio) => {
                 let audio = audio.clone();
                 let cursor = Cursor::new(audio);
                 let decoder = rodio::Decoder::new(BufReader::new(cursor)).unwrap();
@@ -100,7 +100,7 @@ impl Audio {
                     decoder.repeat_infinite(),
                 );
             }
-            AudioType::Loose(ref audio) => {
+            &AudioType::Loose(ref audio) => {
                 let mut audio = audio.try_clone().unwrap();
                 audio.seek(SeekFrom::Start(0u64)).unwrap();
                 let decoder = rodio::Decoder::new(BufReader::new(audio)).unwrap();
