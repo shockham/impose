@@ -30,6 +30,14 @@ pub struct Audio {
     channels: HashMap<&'static str, Sink>,
 }
 
+/// Implementation of Default trait for Audio
+impl Default for Audio {
+    /// Creates a default instance of Audio
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Audio {
     /// Creates a new instance of the Audio system
     pub fn new() -> Audio {
