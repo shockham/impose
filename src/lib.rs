@@ -6,11 +6,11 @@
 
 extern crate rodio;
 
-use rodio::{Endpoint, Sink};
 use rodio::Source;
+use rodio::{Endpoint, Sink};
 use std::collections::HashMap;
-use std::io::{BufReader, SeekFrom, Seek, Cursor};
 use std::fs::File;
+use std::io::{BufReader, Cursor, Seek, SeekFrom};
 
 /// Enum to denote how the audio is stored
 enum AudioType {
@@ -69,20 +69,12 @@ impl Audio {
             &AudioType::Packed(ref audio) => {
                 let audio = audio.clone();
                 let cursor = Cursor::new(audio);
-                self.channels[name].append(
-                    rodio::Decoder::new(
-                        BufReader::new(cursor),
-                    ).unwrap(),
-                );
+                self.channels[name].append(rodio::Decoder::new(BufReader::new(cursor)).unwrap());
             }
             &AudioType::Loose(ref audio) => {
                 let mut audio = audio.try_clone().unwrap();
                 audio.seek(SeekFrom::Start(0u64)).unwrap();
-                self.channels[name].append(
-                    rodio::Decoder::new(
-                        BufReader::new(audio),
-                    ).unwrap(),
-                );
+                self.channels[name].append(rodio::Decoder::new(BufReader::new(audio)).unwrap());
             }
         }
     }
@@ -96,17 +88,13 @@ impl Audio {
                 let audio = audio.clone();
                 let cursor = Cursor::new(audio);
                 let decoder = rodio::Decoder::new(BufReader::new(cursor)).unwrap();
-                self.channels[name].append(
-                    decoder.repeat_infinite(),
-                );
+                self.channels[name].append(decoder.repeat_infinite());
             }
             &AudioType::Loose(ref audio) => {
                 let mut audio = audio.try_clone().unwrap();
                 audio.seek(SeekFrom::Start(0u64)).unwrap();
                 let decoder = rodio::Decoder::new(BufReader::new(audio)).unwrap();
-                self.channels[name].append(
-                    decoder.repeat_infinite(),
-                );
+                self.channels[name].append(decoder.repeat_infinite());
             }
         }
     }
