@@ -7,7 +7,7 @@
 extern crate rodio;
 
 use rodio::Source;
-use rodio::{Endpoint, Sink};
+use rodio::{Device, Sink};
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::{BufReader, Cursor, Seek, SeekFrom};
@@ -23,7 +23,7 @@ enum AudioType {
 /// Struct representing the Audio system
 pub struct Audio {
     /// The endpoint to play the audio from
-    endpoint: Endpoint,
+    endpoint: Device,
     /// HashMap of available audio clips
     audio: HashMap<&'static str, AudioType>,
     /// HashMap of the playback channels that are associated with audio clips
@@ -42,7 +42,7 @@ impl Audio {
     /// Creates a new instance of the Audio system
     pub fn new() -> Audio {
         Audio {
-            endpoint: rodio::default_endpoint().unwrap(),
+            endpoint: rodio::default_output_device().unwrap(),
             audio: HashMap::new(),
             channels: HashMap::new(),
         }
